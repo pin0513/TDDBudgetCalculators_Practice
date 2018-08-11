@@ -1,4 +1,6 @@
-﻿namespace TDDBudgetCalculator01
+﻿using System.Linq;
+
+namespace TDDBudgetCalculator01
 {
     public class BudgetCalc
     {
@@ -11,14 +13,16 @@
 
         public decimal TotalAmount(Period period)
         {
-            var budgets = _budgetRepo.GetAll();
-            var amount = 0m;
-            foreach (var budget in budgets)
-            {
-                amount += period.IsBudgetMonth(budget) ? budget.DailyAmount() * period.EffectiveDays(budget) : 0;
-            }
+            return _budgetRepo.GetAll().Sum(b => b.CalcAmount(period));
+            //var budgets = _budgetRepo.GetAll();
 
-            return amount;
+            //var amount = 0m;
+            //foreach (var budget in budgets)
+            //{
+            //    amount += budget.CalcAmount(period);
+            //}
+
+            //return amount;
         }
     }
 }
