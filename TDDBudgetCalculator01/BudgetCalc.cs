@@ -18,19 +18,13 @@ namespace TDDBudgetCalculator01
             var budget = budgets[0];
             if (budget != null)
             {
-                var budgetLastDay = budget.LastDay;
-                if (budgetLastDay < period.Start)
+                if (budget.LastDay < period.Start)
                 {
                     return 0;
                 }
                 return 1 * period.DaysInPeriod();
             }
             return 0;
-        }
-
-        private static bool CheckInsideBudgetExist(Period period, Budget budget)
-        {
-            return period.Start.ToString("yyyyMM") == budget.YearMonth && period.End.ToString("yyyyMM") == budget.YearMonth;
         }
     }
 
