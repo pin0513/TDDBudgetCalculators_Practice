@@ -71,6 +71,16 @@ namespace TDDBudgetCalculator01
             AmountShouldBe(new DateTime(2018, 2, 28), new DateTime(2018, 3, 1), 1);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void inValidDate()
+        {
+            _budgetRepo.GetAll().Returns(new List<Budget>(){
+                new Budget{YearMonth="201803",Amount=31  }
+            });
+            AmountShouldBe(new DateTime(2018, 3, 1), new DateTime(2018, 2, 1), 1);
+        }
+
         private void AmountShouldBe(DateTime start, DateTime end, int expected)
         {
             var amount = _budgetCalc.TotalAmount(new Period(start, end));
