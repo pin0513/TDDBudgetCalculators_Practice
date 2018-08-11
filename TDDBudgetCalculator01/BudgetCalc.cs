@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace TDDBudgetCalculator01
+﻿namespace TDDBudgetCalculator01
 {
     public class BudgetCalc
     {
@@ -14,18 +12,13 @@ namespace TDDBudgetCalculator01
         public decimal TotalAmount(Period period)
         {
             var budgets = _budgetRepo.GetAll();
-
-            var budget = budgets.FirstOrDefault(b => IsSingleMonth(period, b));
-            if (budget != null)
+            var amount = 0m;
+            foreach (var budget in budgets)
             {
-                return budget.DailyAmount() * period.EffectiveDays(budget);
+                amount += period.IsBudgetMonth(budget) ? budget.DailyAmount() * period.EffectiveDays(budget) : 0;
             }
-            return 0;
-        }
 
-        private static bool IsSingleMonth(Period period, Budget budget)
-        {
-            return budget.YearMonth == period.Start.ToString("yyyyMM") || budget.YearMonth == period.End.ToString("yyyyMM");
+            return amount;
         }
     }
 }

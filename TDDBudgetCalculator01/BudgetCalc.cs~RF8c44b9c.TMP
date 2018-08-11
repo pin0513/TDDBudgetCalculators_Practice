@@ -1,0 +1,36 @@
+﻿using System.Linq;
+
+namespace TDDBudgetCalculator01
+{
+    public class BudgetCalc
+    {
+        private readonly IBudgetRepo _budgetRepo;
+
+        public BudgetCalc(IBudgetRepo budgetRepo)
+        {
+            _budgetRepo = budgetRepo;
+        }
+
+        public decimal TotalAmount(Period period)
+        {
+            var budgets = _budgetRepo.GetAll();
+            decimal amount = 0m;
+            foreach (var budget in budgets)
+            {
+                if (budget.YearMonth == period.Start.ToString("yyyyMM") ||
+                    budget.YearMonth == period.End.ToString("yyyyMM"))
+                    amount += budget.DailyAmount() * period.EffectiveDays(budget);
+                else
+                    amount += 0;
+            }
+
+
+            var budget = budgets.FirstOrDefault(b => b.YearMonth == period.Start.ToString("yyyyMM") || b.YearMonth == period.End.ToString("yyyyMM"));
+            if (budget != null)
+            {
+                return budget.DailyAmount() * period.EffectiveDays(budget);
+            }
+            return 0;
+        }
+    }
+}

@@ -35,5 +35,11 @@ namespace TDDBudgetCalculator01
 
             return DaysInPeriod();
         }
+
+        public bool IsBudgetMonth(Budget budget)
+        {
+            return budget.YearMonth == Start.ToString("yyyyMM") ||
+                   budget.YearMonth == End.ToString("yyyyMM");
+        }
     }
 }
