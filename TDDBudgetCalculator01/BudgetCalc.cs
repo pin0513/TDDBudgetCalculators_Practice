@@ -26,6 +26,9 @@
                     return 0;
                 }
 
+                var dailyAmount = budget.Amount / ((budget.LastDay - budget.FirstDay).Days);
+                return dailyAmount * period.EffectiveDays(budget);
+
                 return 1 * period.EffectiveDays(budget);
             }
             return 0;
