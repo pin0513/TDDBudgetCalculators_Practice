@@ -22,9 +22,16 @@ namespace TDDBudgetCalculator01
                 {
                     return 0;
                 }
+
                 if (budget.LastDay < period.Start)
                 {
                     return 0;
+                }
+
+                if (budget.LastDay < period.End)
+                {
+                    var days = (budget.LastDay - period.Start).Days + 1;
+                    return 1 * days;
                 }
 
                 return 1 * period.DaysInPeriod();
