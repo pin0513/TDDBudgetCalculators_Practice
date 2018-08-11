@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace TDDBudgetCalculator01
 {
@@ -16,9 +15,14 @@ namespace TDDBudgetCalculator01
         {
             var budgets = _budgetRepo.GetAll();
 
-            var budget = budgets.FirstOrDefault(b => CheckInsideBudgetExist(period, b));
+            var budget = budgets[0];
             if (budget != null)
             {
+                var budgetLastDay = budget.LastDay;
+                if (budgetLastDay < period.Start)
+                {
+                    return 0;
+                }
                 return 1 * period.DaysInPeriod();
             }
             return 0;
