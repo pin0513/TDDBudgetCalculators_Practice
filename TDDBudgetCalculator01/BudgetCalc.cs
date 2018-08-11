@@ -16,13 +16,17 @@ namespace TDDBudgetCalculator01
         {
             var budgets = _budgetRepo.GetAll();
 
-            var budget = budgets.FirstOrDefault(b =>
-                period.Start.ToString("yyyyMM") == b.YearMonth && period.End.ToString("yyyyMM") == b.YearMonth);
+            var budget = budgets.FirstOrDefault(b => CheckInsideBudgetExist(period, b));
             if (budget != null)
             {
                 return 1 * period.DaysInPeriod();
             }
             return 0;
+        }
+
+        private static bool CheckInsideBudgetExist(Period period, Budget budget)
+        {
+            return period.Start.ToString("yyyyMM") == budget.YearMonth && period.End.ToString("yyyyMM") == budget.YearMonth;
         }
     }
 
