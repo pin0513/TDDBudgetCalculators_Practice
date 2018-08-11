@@ -10,5 +10,15 @@ namespace TDDBudgetCalculator01
         public DateTime LastDay => new DateTime(FirstDay.Year, FirstDay.Month, DateTime.DaysInMonth(FirstDay.Year, FirstDay.Month));
 
         public DateTime FirstDay => DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
+
+        public int DaysInMonth()
+        {
+            return ((LastDay - FirstDay).Days);
+        }
+
+        public int DailyAmount()
+        {
+            return Amount / DaysInMonth();
+        }
     }
 }
