@@ -18,10 +18,15 @@ namespace TDDBudgetCalculator01
             var budget = budgets[0];
             if (budget != null)
             {
+                if (budget.FirstDay > period.End)
+                {
+                    return 0;
+                }
                 if (budget.LastDay < period.Start)
                 {
                     return 0;
                 }
+
                 return 1 * period.DaysInPeriod();
             }
             return 0;
