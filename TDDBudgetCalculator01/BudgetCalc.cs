@@ -30,13 +30,17 @@ namespace TDDBudgetCalculator01
 
                 if (budget.LastDay < period.End)
                 {
-                    var days = (budget.LastDay - period.Start).Days + 1;
-                    return 1 * days;
+                    return OverlappingAmount(period, budget);
                 }
 
                 return 1 * period.DaysInPeriod();
             }
             return 0;
+        }
+
+        private static decimal OverlappingAmount(Period period, Budget budget)
+        {
+            return 1 * period.EffectiveDays(budget);
         }
     }
 
@@ -54,6 +58,11 @@ namespace TDDBudgetCalculator01
         public int DaysInPeriod()
         {
             return (End - Start).Days + 1;
+        }
+
+        public int EffectiveDays(Budget budget)
+        {
+            return ((budget.LastDay - Start).Days + 1);
         }
     }
 }

@@ -62,8 +62,6 @@ namespace TDDBudgetCalculator01
             AmountShouldBe(new DateTime(2018, 3, 31), new DateTime(2018, 4, 1), 1);
         }
 
-
-
         private void AmountShouldBe(DateTime start, DateTime end, int expected)
         {
             var amount = _budgetCalc.TotalAmount(new Period(start, end));
