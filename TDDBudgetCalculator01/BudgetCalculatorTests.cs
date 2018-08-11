@@ -35,6 +35,15 @@ namespace TDDBudgetCalculator01
             AmountShouldBe(new DateTime(2018, 03, 01), new DateTime(2018, 03, 01), 1);
         }
 
+        [TestMethod]
+        public void no_overlap_period_after_budget_LastDay()
+        {
+            _budgetRepo.GetAll().Returns(new List<Budget>(){
+                new Budget{YearMonth="201803",Amount=31  }
+            });
+            AmountShouldBe(new DateTime(2018, 4, 1), new DateTime(2018, 4, 1), 0);
+        }
+
         private void AmountShouldBe(DateTime start, DateTime end, int expected)
         {
             var amount = _budgetCalc.TotalAmount(new Period(start, end));
