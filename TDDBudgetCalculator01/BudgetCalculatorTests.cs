@@ -37,7 +37,7 @@ namespace TDDBudgetCalculator01
 
         private void AmountShouldBe(DateTime start, DateTime end, int expected)
         {
-            var amount = _budgetCalc.TotalAmount(start, end);
+            var amount = _budgetCalc.TotalAmount(new Period(start, end));
             Assert.AreEqual(expected, amount);
         }
     }

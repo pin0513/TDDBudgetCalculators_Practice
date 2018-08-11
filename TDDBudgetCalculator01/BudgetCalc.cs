@@ -12,18 +12,15 @@ namespace TDDBudgetCalculator01
             _budgetRepo = budgetRepo;
         }
 
-        public decimal TotalAmount(DateTime start, DateTime end)
+        public decimal TotalAmount(Period period)
         {
             var budgets = _budgetRepo.GetAll();
-
-            var period = new Period(start, end);
 
             var budget = budgets.FirstOrDefault(b =>
                 period.Start.ToString("yyyyMM") == b.YearMonth && period.End.ToString("yyyyMM") == b.YearMonth);
             if (budget != null)
             {
-                var daysInPeriod = (period.End - period.Start).Days + 1;
-                return 1 * daysInPeriod;
+                return 1 * period.DaysInPeriod();
             }
             return 0;
         }
@@ -38,6 +35,11 @@ namespace TDDBudgetCalculator01
         {
             Start = start;
             End = end;
+        }
+
+        public int DaysInPeriod()
+        {
+            return (End - Start).Days + 1;
         }
     }
 }
