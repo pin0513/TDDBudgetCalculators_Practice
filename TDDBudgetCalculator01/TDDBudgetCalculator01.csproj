@@ -59,7 +59,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Budget.cs" />
     <Compile Include="BudgetCalc.cs" />
+    <Compile Include="IBudgetRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BudgetCalculatorTests.cs" />
   </ItemGroup>
