@@ -21,7 +21,7 @@ namespace TDDBudgetCalculator01
             return Amount / DaysInMonth();
         }
 
-        public int CalcAmount(Period period)
+        public int EffectiveAmount(Period period)
         {
             return period.IsBudgetMonth(this) ? DailyAmount() * period.EffectiveDays(this) : 0;
         }
